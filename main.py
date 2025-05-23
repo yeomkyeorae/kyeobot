@@ -30,7 +30,8 @@ async def endpoint(req: Request):
 @slack_app.message("목록")
 def reply_list(message, say):
     commands = ['환율', '지밍']
-    say(f'사용할 수 있는 명령어는 {', '.join(commands)} 등 입니다.')
+    commands_str = ', '.join(commands)
+    say(f'사용할 수 있는 명령어는 {commands_str} 등 입니다.')
 
 @slack_app.message("지밍")
 def reply_jiming(message, say):
