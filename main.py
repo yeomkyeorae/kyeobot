@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from slack_bolt import App
 from slack_bolt.adapter.fastapi import SlackRequestHandler
+from datetime import datetime
 import requests
 
 f = open("./slack.key")
@@ -28,8 +29,15 @@ async def endpoint(req: Request):
 
 @slack_app.message("목록")
 def reply_list(message, say):
-    commands = ['환율']
+    commands = ['환율', '지밍']
     say(f'사용할 수 있는 명령어는 {', '.join(commands)} 등 입니다.')
+
+@slack_app.message("지밍")
+def reply_jiming(message, say):
+    birth_date = datetime(2024, 8, 5)
+    today_date = datetime.now()
+    delta = today_date - birth_date
+    say(f'공주님 탄생으로부터 {delta.days}일 경과했습니다.')
 
 @slack_app.message("환율")
 def reply_exchange_rate(message, say):
