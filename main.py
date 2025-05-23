@@ -26,18 +26,10 @@ handler = SlackRequestHandler(app=slack_app)
 async def endpoint(req: Request):
     return await handler.handle(req)
 
-# 'hello' 메시지에 반응하는 핸들러 등록
-@slack_app.message("hello")
-def reply_hello(message, say):
-    print('haha', message, say)
-    user_id = message['user']
-    say(f'hello <@{user_id}>님')
-
-# '야야' 메시지에 반응하는 핸들러 등록
-@slack_app.message("야야")
-def reply_yaya(message, say):
-    user_id = message['user']
-    say(f'뭐 <@{user_id}> 이 시키야')
+@slack_app.message("목록")
+def reply_list(message, say):
+    commands = ['환율']
+    say(f'사용할 수 있는 명령어는 {', '.join(commands)} 등 입니다.')
 
 @slack_app.message("환율")
 def reply_exchange_rate(message, say):
